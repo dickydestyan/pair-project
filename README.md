@@ -34,11 +34,11 @@ On Demand (traveloka/tiket.com)
       - id (SERIAL)
       - codeTrx (VARCHAR)
       - idUser (INTERGER) REFERENCES (Users)
-      - idTicket
-      - totalPrice
+      - idTicket (INTEGER) REFERENCES (Tickets)
+      - totalPrice (INTEGER)
       
    f. TransactionsDetail
       - id (SERIAL)
       - idTrx (INTEGER) REFERENCES (Transactions)
-      - idPassengers
-      - price
+      - idPassengers (INTEGER) REFERENCES (Passengers)
+      - price (INTEGER)
