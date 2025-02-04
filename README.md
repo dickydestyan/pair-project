@@ -36,9 +36,3 @@ On Demand (traveloka/tiket.com)
       - idUser (INTERGER) REFERENCES (Users)
       - idTicket (INTEGER) REFERENCES (Tickets)
       - totalPrice (INTEGER)
-      
-   f. TransactionsDetail
-      - id (SERIAL)
-      - idTrx (INTEGER) REFERENCES (Transactions)
-      - idPassengers (INTEGER) REFERENCES (Passengers)
-      - price (INTEGER)
