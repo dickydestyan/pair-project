@@ -1,0 +1,11 @@
+[
+    {
+        "title": "Mr.",
+        "firstName": "Tim",
+        "lastName": "Timmy",
+        "dateOfBirth": "1997-08-12",
+        "gender": "Male",
+        "email": "timtimmy@gmail.com",
+        "nationality": "Indonesia"
+    }
+]

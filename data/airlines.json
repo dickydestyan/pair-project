@@ -1,0 +1,29 @@
+[
+    {
+        "name": "Citiling",
+        "codeFlight": "QG102",
+        "dateFlight": "2025-02-07",
+        "from": "Jakarta",
+        "to": "Bali",
+        "totalSeat": 20,
+        "price": 780000
+    },
+    {
+        "name": "Tiger",
+        "codeFlight": "TG111",
+        "dateFlight": "2025-02-07",
+        "from": "Jakarta",
+        "to": "Bali",
+        "totalSeat": 15,
+        "price": 750000
+    },
+    {
+        "name": "Air Hacktiv",
+        "codeFlight": "HCK80",
+        "dateFlight": "2025-02-07",
+        "from": "Jakarta",
+        "to": "Bali",
+        "totalSeat": 10,
+        "price": 800000
+    }
+]
