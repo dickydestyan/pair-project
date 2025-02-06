@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Airline</title>
+</head>
+
+<body style="background-color: #21252B;">
+    <%- include('_navbar') %>
+
+        <form method="post" action="/airlines/add" style="width: 60%; margin-left: auto; margin-right: auto;">
+            <label class="form-control w-full" style="background-color: #21252B; border: 0; margin-top: 30px;">
+                <div class="label">
+                    <span class="label-text">Name</span>
+                </div>
+                <input name="name" type="text" placeholder="Type here" class="input input-bordered w-full" style="color: darkgrey;" />
+                <% if (path) { %>
+                    <% let index = path.split(",").findIndex((el) => el === "name") %>
+                    <p class="text-sm" style="color: red;"><%= msg.split(",")[index] %></p>
+                  <% } %>
+
+                <div class="label" style="margin-top: 10px;">
+                    <span class="label-text">Code Flight</span>
+                </div>
+                <input name="codeFlight" type="text" placeholder="Type here" class="input input-bordered w-full" style="color: darkgrey;" />
+                <% if (path) { %>
+                    <% let index = path.split(",").findIndex((el) => el === "codeFlight") %>
+                    <p class="text-sm" style="color: red;"><%= msg.split(",")[index] %></p>
+                <% } %>
+
+                <div class="label" style="margin-top: 10px;">
+                    <span class="label-text">Date Flight</span>
+                </div>
+                <input name="dateFlight" type="date" class="input input-bordered w-full" style="color: darkgrey;" />
+                <% if (path) { %>
+                    <% let index = path.split(",").findIndex((el) => el === "dateFlight") %>
+                    <p class="text-sm" style="color: red;"><%= msg.split(",")[index] %></p>
+                <% } %>
+
+                <div class="label" style="margin-top: 10px;">
+                    <span class="label-text">From</span>
+                </div>
+                <input name="from" type="text" placeholder="Type here" class="input input-bordered w-full" style="color: darkgrey;" />
+                <% if (path) { %>
+                    <% let index = path.split(",").findIndex((el) => el === "from") %>
+                    <p class="text-sm" style="color: red;"><%= msg.split(",")[index] %></p>
+                <% } %>
+
+                <div class="label" style="margin-top: 10px;">
+                    <span class="label-text">To</span>
+                </div>
+                <input name="to" type="text" placeholder="Type here" class="input input-bordered w-full" style="color: darkgrey;" />
+                <% if (path) { %>
+                    <% let index = path.split(",").findIndex((el) => el === "to") %>
+                    <p class="text-sm" style="color: red;"><%= msg.split(",")[index] %></p>
+                <% } %>
+
+                <div class="label" style="margin-top: 10px;">
+                    <span class="label-text">Total Seat</span>
+                </div>
+                <input name="totalSeat" type="number" placeholder="Type here" class="input input-bordered w-full" style="color: darkgrey;" />
+                <% if (path) { %>
+                    <% let index = path.split(",").findIndex((el) => el === "totalSeat") %>
+                    <p class="text-sm" style="color: red;"><%= msg.split(",")[index] %></p>
+                <% } %>
+
+                <div class="label" style="margin-top: 10px;">
+                    <span class="label-text">Price</span>
+                </div>
+                <input name="price" type="number" placeholder="Type here" class="input input-bordered w-full" style="color: darkgrey;" />
+                <% if (path) { %>
+                    <% let index = path.split(",").findIndex((el) => el === "price") %>
+                    <p class="text-sm" style="color: red;"><%= msg.split(",")[index] %></p>
+                <% } %>
+            </label>
+
+            <button class="btn btn-natural" type="submit" style="margin-top: 30px; margin-bottom: 30p;">Submit</button>
+        </form>
+
+        <%- include('_scriptDUI') %>
+</body>
+
+</html>

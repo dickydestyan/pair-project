@@ -1,63 +1,126 @@
-const { User } = require("../models/index");
-const bcrypt = require("bcryptjs");
+const { Airline, Ticket } = require("../models/index");
+const formatRupiah = require("../helper/formatRp");
 
 class Controller {
-    static loginUser(req, res) {
-        let { msg } = req.query;res.render('auth-page/loginForm', {msg});
-    }
-
-    static regisForm(req, res) {
-        res.render('auth-page/regisUser')
-    }
-
-    static async postRegis(req, res) {
+    static async homepage(req, res) {
         try {
-            let { email, name, password } = req.body;
-            
-            await User.create({ email, name, password });
+            let airlines = await Airline.findAll({
+                order: [["id"]]
+            });
 
-            res.redirect("/login");
+            res.render('home', {airlines, formatRupiah})
             
         } catch (error) {
             res.send(error);
         }
     }
 
-    static async postLogin(req, res) {
+    static async addAirlineForm(req, res) {
         try {
-            let { email, password } = req.body;
+            let { msg, path } = req.query;
 
-            let user = await User.findOne({
-                where: { email }
-            })
+            res.render('addAirlineForm', { msg, path });
+            
+        } catch (error) {
+            res.send(error);
+        }
+    }
 
-            if (user) {
-                let isValid = await bcrypt.compare(password, user.password);
+    static async postAddAirline(req, res) {
+        try {
+            let {
+                name,
+                codeFlight,
+                dateFlight,
+                from,
+                to,
+                totalSeat,
+                price
+            } = req.body
 
-                
-                if (isValid) {
-                    req.session.userId = user.id
+            await Airline.create({
+                name,
+                codeFlight,
+                dateFlight,
+                from,
+                to,
+                totalSeat,
+                price
+            });
 
-                    res.redirect("/");
+            res.redirect("/");
+            
+        } catch (error) {
+            if (error.name === 'SequelizeValidationError' || error.name === 'SequelizeUniqueConstraintError') {
+                let msg = error.errors.map(el => el.message);
+                let path = error.errors.map(el => el.path);
 
-                } else {
-                    res.redirect(`/login?msg=Invalid Email/Password`);
-                }
+                res.redirect(`/airlines/add?msg=${msg}&path=${path}`);
 
             } else {
-                res.redirect(`/login?msg=Invalid Email/Password`);
+                res.send(error);
+
             }
+        }
+    }
+
+    static async editAirlineForm(req, res) {
+        try {
+            let { msg, path } = req.query;
+
+            let { AirlineId } = req.params
+
+            let airline = await Airline.findByPk(AirlineId);
+
+            res.render('editAirlineForm', { airline, msg, path });
             
         } catch (error) {
             res.send(error);
         }
     }
 
-    static async logoutUser (req, res) {
-        await req.session.destroy(err => {
-            if (err) res.send(err);
-            else res.redirect("/login");
-        });
+    static async postEditAirline(req, res) {
+        try {
+            let {
+                name,
+                codeFlight,
+                dateFlight,
+                from,
+                to,
+                totalSeat,
+                price
+            } = req.body
+
+            let { AirlineId } = req.params;
+
+            let airline = await Airline.findByPk(AirlineId)
+
+            await airline.update({
+                name,
+                codeFlight,
+                dateFlight,
+                from,
+                to,
+                totalSeat,
+                price
+            });
+
+            res.redirect("/");
+            
+        } catch (error) {
+            if (error.name === 'SequelizeValidationError' || error.name === 'SequelizeUniqueConstraintError') {
+                let msg = error.errors.map(el => el.message);
+                let path = error.errors.map(el => el.path);
+
+                let { AirlineId } = req.params;
+
+                res.redirect(`/airlines/${AirlineId}/edit?msg=${msg}&path=${path}`);
+
+            } else {
+                res.send(error);
+
+            }
+        }
     }
 }
 

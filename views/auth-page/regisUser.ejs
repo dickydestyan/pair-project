@@ -17,6 +17,7 @@
         <form method="post" action="/register" class="overflow-hidden bg-white rounded shadow-md text-slate-500 shadow-slate-200">
           <!-- Body-->
           <div class="p-8">
+            <a href="/login"><img style="max-width: 30px; opacity: 40%;" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRRKdD-BP8yTrV5v62fvsd36UCpSAwEe3Edfw&s" alt="back"></a>
             <header class="mb-4 text-center">
               <h3 class="text-xl font-medium text-slate-700">Sign Up</h3>
             </header>
@@ -25,15 +26,27 @@
               <div class="relative my-6">
                 <span class="text-xs">Email</span>
                 <input type="email" name="email" placeholder="your email"
-                  class="relative w-full h-10 px-4 text-sm transition-all border rounded outline-none peer autofill:bg-white" />
+                class="relative w-full h-10 px-4 text-sm transition-all border rounded outline-none peer autofill:bg-white" />
+                <% if (path) { %>
+                  <% let index = path.split(",").findIndex((el) => el === "email") %>
+                  <p class="text-sm" style="color: red;"><%= msg.split(",")[index] %></p>
+                <% } %>
 
                 <span class="text-xs">Name</span>
                 <input type="text" name="name" placeholder="your name"
                   class="relative w-full h-10 px-4 text-sm transition-all border rounded outline-none peer autofill:bg-white" />
+                <% if (path) { %>
+                  <% let index = path.split(",").findIndex((el) => el === "name") %>
+                  <p class="text-sm" style="color: red;"><%= msg.split(",")[index] %></p>
+                <% } %>
 
                 <span class="text-xs">Password</span>
                 <input type="password" name="password" placeholder="your password"
                     class="relative w-full h-10 px-4 pr-12 text-sm transition-all border rounded outline-none peer border-slate-200 text-slate-500 autofill:bg-white invalid:border-pink-500 invalid:text-pink-500 focus:border-emerald-500 focus:outline-none invalid:focus:border-pink-500 disabled:cursor-not-allowed disabled:bg-slate-50 disabled:text-slate-400" />
+                <% if (path) { %>
+                  <% let index = path.split(",").findIndex((el) => el === "password") %>
+                  <p class="text-sm" style="color: red;"><%= msg.split(",")[index] %></p>
+                <% } %>
               </div>
 
               <!-- End Small link basic button -->

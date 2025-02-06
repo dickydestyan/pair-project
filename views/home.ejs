@@ -1,11 +1,54 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Home Page</title>
 </head>
-<body>
-    <%- include('_navbar') %>
-</body>
+
+<body style="height: 100vh; background-size: 100%; background-image: url('https://e1.pxfuel.com/desktop-wallpaper/426/564/desktop-wallpaper-aircraft-airplane-laptop.jpg');" >
+  <%- include('_navbar') %>
+  
+  <div style="width: 80%; margin-left: auto; margin-right: auto; margin-top: 30px;">
+    <div style="margin-bottom: 20px;">
+      <a href="/airlines/add" class="btn btn-primary">Add Airline</a>
+    </div>
+
+    <div class="overflow-x-auto">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>No.</th>
+            <th>Name</th>
+            <th>Code Flight</th>
+            <th>Date Flight</th>
+            <th>From</th>
+            <th>To</th>
+            <th>Price</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+          <tbody>
+            <% airlines.forEach((airline, idx) => { %>
+              <tr>
+                <th><%= idx+1 %></th>
+                <td><%= airline.name %></td>
+                <td><%= airline.codeFlight %></td>
+                <td><%= airline.dateFormat() %></td>
+                <td><%= airline.from %></td>
+                <td><%= airline.to %></td>
+                <td><%= formatRupiah(airline.price) %></td>
+                <td><a href="/airlines/<%= airline.id %>/edit" class="btn btn-warning">Edit</a></td>
+              </tr>
+             
+            <% }) %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <%- include('_scriptDUI') %>
+  </body>
+  
 </html>

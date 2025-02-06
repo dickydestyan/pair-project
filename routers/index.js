@@ -1,34 +1,48 @@
 const express = require('express');
+const UserController = require('../controllers/userController');
 const Controller = require('../controllers/controller');
+const airline = require('./airlines');
 const router = express.Router();
 
 
 // logout
-router.get("/register", Controller.regisForm);
+router.get("/register", UserController.regisForm);
 
-router.post("/register", Controller.postRegis);
+router.post("/register", UserController.postRegis);
 
 // login
-router.get("/login", Controller.loginUser);
+router.get("/login", UserController.loginUser);
 
-router.post("/login", Controller.postLogin)
+router.post("/login", UserController.postLogin)
 
 // logout
-router.get("/logout", Controller.logoutUser);
+router.get("/logout", UserController.logoutUser);
 
 
-router.use((req, res, next) => {
+let isLogin = (req, res, next) => {
     if (!req.session.userId) {
         res.redirect("/login?msg=Please login first!");
 
     } else {
         next();
     }
-})
+};
+
+let isAdmin = (req, res, next) => {
+    if (req.session.userId && req.session.role !== "admin") {
+        res.redirect("/login?msg=Please login first!");
+
+    } else {
+        next();
+    }
+};
+
+// router.use(isLogin)
 
 
-router.get("/", (req, res) => {
-    res.render('home');
-});
+router.get("/", Controller.homepage);
+
+router.use("/airlines", airline)
+
 
 module.exports = router;
