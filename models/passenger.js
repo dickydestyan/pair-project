@@ -15,6 +15,20 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "PassengerId"
       })
     }
+
+    get fullName() {
+      return `${this.firstName} ${this.lastName}`;
+    }
+
+    dateFormat() {
+      let year = this.dateOfBirth.getFullYear();
+      let month = this.dateOfBirth.getMonth()+1;
+      month = (month < 10)? "0"+month: month;
+      let day = this.dateOfBirth.getDate();
+      day = (day < 10)? "0"+day: day;
+      
+      return `${year}-${month}-${day}`;
+    }
   }
   Passenger.init({
     title: DataTypes.STRING,

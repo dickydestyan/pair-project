@@ -21,7 +21,7 @@ module.exports = (sequelize, DataTypes) => {
       let month = this.dateFlight.getMonth()+1;
       month = (month < 10)? "0"+month: month;
       let day = this.dateFlight.getDate();
-      day = (month < 10)? "0"+day: day;
+      day = (day < 10)? "0"+day: day;
       
       return `${year}-${month}-${day}`;
     }

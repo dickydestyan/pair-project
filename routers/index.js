@@ -2,6 +2,7 @@ const express = require('express');
 const UserController = require('../controllers/userController');
 const Controller = require('../controllers/controller');
 const airline = require('./airlines');
+const passenger = require('./passengers');
 const router = express.Router();
 
 
@@ -28,21 +29,20 @@ let isLogin = (req, res, next) => {
     }
 };
 
-let isAdmin = (req, res, next) => {
-    if (req.session.userId && req.session.role !== "admin") {
-        res.redirect("/login?msg=Please login first!");
 
-    } else {
-        next();
-    }
-};
 
 // router.use(isLogin)
 
 
-router.get("/", Controller.homepage);
+router.get("/", isLogin, Controller.homepage);
 
-router.use("/airlines", airline)
+router.use("/airlines", isLogin, airline);
+
+router.use("/passengers", isLogin, passenger);
+
+router.get('/history', Controller.showHistory)
+
+router.get('/invoice/:TransactionId', Controller.createInvoice)
 
 
 module.exports = router;

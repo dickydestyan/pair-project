@@ -22,11 +22,28 @@ module.exports = (sequelize, DataTypes) => {
   }
   Transaction.init({
     codeTrx: DataTypes.STRING,
-    UserId: DataTypes.INTEGER,
-    TicketId: DataTypes.INTEGER
+    UserId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: "Users",
+        key: "id"
+      }
+    },
+    TicketId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: "Tickets",
+        key: "id"
+      }
+    }
   }, {
     sequelize,
     modelName: 'Transaction',
+    hooks: {
+      beforeCreate(input, option) {
+        input.codeTrx = new Date.getTime();
+      }
+    }
   });
   return Transaction;
 };

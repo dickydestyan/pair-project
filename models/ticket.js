@@ -12,7 +12,7 @@ module.exports = (sequelize, DataTypes) => {
     static associate(models) {
       // define association here
       Ticket.belongsTo(models.Airline, {
-        foreignKey: "AirlinesId"
+        foreignKey: "AirlineId"
       });
 
       Ticket.belongsTo(models.Passenger, {
@@ -26,8 +26,20 @@ module.exports = (sequelize, DataTypes) => {
   }
   Ticket.init({
     seatNumber: DataTypes.STRING,
-    AirlineId: DataTypes.INTEGER,
-    PassengerId: DataTypes.INTEGER
+    AirlineId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: "Airlines",
+        key: "id"
+      }
+    },
+    PassengerId: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: "Passengers",
+        key: "id"
+      }
+    }
   }, {
     sequelize,
     modelName: 'Ticket',
